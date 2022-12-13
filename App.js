@@ -1,26 +1,24 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dimensions, Image } from 'react-native';
+import React from 'react';
+
+
 
 const API_URL = "https://api.covalenthq.com/v1/1/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 var deviceWidth = Dimensions.get('window').width;
 
-
-var DATA;
-
-const parseResult = (jsonRes) => {
-  console.log("we are parsing result now");
-  DATA = jsonRes.data.items;
-  console.log("data parsed succesfully");
-  console.log(DATA);
- }
+const url = 'https://logos.covalenthq.com/tokens/1/0xc18360217d8f7ab5e7c516566761ea12ce7f9d72.png';
 
 
-const Item = ({contract_name,contract_ticker_symbol,logo_url }) => (
+
+
+
+const Item = ({contract_name, contract_ticker_symbol, logo_url, balance, contract_decimals }) => (
   <View style={styles.item}>
     <View style={styles.listItem}>
     <Image
         style={styles.tinyLogo}
         source={{
-uri:{logo_url},
+uri:logo_url
         }}
       />
         <View style={{flexDirection: 'row', flex:4}}>
@@ -32,7 +30,7 @@ uri:{logo_url},
     </View>
 
     <View style={{flexDirection:'column', paddingLeft:50,}}>
-    <Text style={styles.title}>$23.62</Text>
+    <Text style={styles.title}>{balance}</Text>
     <Text style={styles.title}>0.9936</Text>
  
 
@@ -54,35 +52,48 @@ uri:{logo_url},
 );
 
 
-const onChangeHandler = () => {
-  fetch(`${API_URL}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-})
-.then(async res => { 
-    try {
-        const jsonRes = await res.json();
-        if (res.status === 200) {
-          parseResult(jsonRes);
-        } else {
-          console.log("Not working lol")
-        }
-    } catch (err) {
-        console.log(err);
-    };
-})
-.catch(err => {
-    console.log(err);
-});
-};
 
 
 export default function App() {
+  const parseResult = (jsonRes) => {
+    console.log("we are parsing result now");
+     setData(jsonRes.data.items);
+    console.log("data parsed succesfully");
+    console.log(data);
+   }
+  const [data, setData] = React.useState([]);
+
   const renderItem = ({ item }) => (
-    <Item title={item.title} />
+    <Item contract_name={item.contract_name} contract_ticker_symbol={item.contract_ticker_symbol} logo_url={item.logo_url} balance={item.balance} contract_decimals={item.contract_decimals}/>
   );
+
+
+  const onChangeHandler = () => {
+    fetch(`${API_URL}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  })
+  .then(async res => { 
+      try {
+          const jsonRes = await res.json();
+          if (res.status === 200) {
+            parseResult(jsonRes);
+          } else {
+            console.log("Not working lol")
+          }
+      } catch (err) {
+          console.log(err);
+      };
+  })
+  .catch(err => {
+      console.log(err);
+  });
+  };
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -102,9 +113,9 @@ export default function App() {
   }}
 />
       <FlatList
-        data={DATA}
+        data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        extraData={data}
       />
       </View>
       <StatusBar style="auto" />
