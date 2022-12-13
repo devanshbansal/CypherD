@@ -4,38 +4,31 @@ const API_URL = "https://api.covalenthq.com/v1/1/address/0x6AE65a7033a84bb36778f
 var deviceWidth = Dimensions.get('window').width;
 
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Avalanche Coin',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+var DATA;
+
+const parseResult = (jsonRes) => {
+  console.log("we are parsing result now");
+  DATA = jsonRes.data.items;
+  console.log("data parsed succesfully");
+  console.log(DATA);
+ }
 
 
-const Item = ({ title }) => (
+const Item = ({contract_name,contract_ticker_symbol,logo_url }) => (
   <View style={styles.item}>
-   <Image source={{uri: 'https://www.flaticon.com/free-icons/cryptocurrency'}}  />
     <View style={styles.listItem}>
     <Image
         style={styles.tinyLogo}
         source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
+uri:{logo_url},
         }}
       />
         <View style={{flexDirection: 'row', flex:4}}>
   
 
           <View style={{flexDirection:'column'}}>
-    <Text style={styles.title}>{title}</Text>
-    <Text style={styles.title}>AVAX</Text>
+    <Text style={styles.title}>{contract_name}</Text>
+    <Text style={styles.title}>{contract_ticker_symbol}</Text>
     </View>
 
     <View style={{flexDirection:'column', paddingLeft:50,}}>
@@ -72,7 +65,7 @@ const onChangeHandler = () => {
     try {
         const jsonRes = await res.json();
         if (res.status === 200) {
-          console.log(jsonRes);
+          parseResult(jsonRes);
         } else {
           console.log("Not working lol")
         }
