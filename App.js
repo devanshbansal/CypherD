@@ -1,7 +1,7 @@
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dimensions } from 'react-native';
 
 const API_URL = "https://api.covalenthq.com/v1/1/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
-
+var deviceWidth = Dimensions.get('window').width;
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -19,7 +19,17 @@ const DATA = [
 
 const Item = ({ title }) => (
   <View style={styles.item}>
+    
     <Text style={styles.title}>{title}</Text>
+    <View
+  style={{
+    borderBottomColor: 'black',
+    width: deviceWidth,
+    paddingLeft: 0,
+    paddingTop: 5,
+    borderBottomWidth: 0.45,
+  }}
+/>
   </View>
 );
 
@@ -57,14 +67,20 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
 
-    <View style={styles.container}>
-      <View style ={styles.containter}>
+    <View style={styles.view}>
+      <View style ={styles.view}>
       <Text>Total Balance</Text>
       <Text> 215</Text>
       <Button
         title="Check Balance"
         onPress={onChangeHandler}
       />
+      <View
+  style={{
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.5,
+  }}
+/>
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -80,14 +96,25 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 90,
+    paddingTop: 70,
     paddingLeft: 20,
     backgroundColor: '#fff',
     alignItems: 'left',
     justifyContent: 'left',
   },
+  view: {
+width: deviceWidth,
+  },
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  item: {
+    flex:1,
+    marginVertical: 8,
+  },
+  title: {
+    padding:20,
+    fontSize: 11,
   },
 });
