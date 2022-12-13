@@ -1,11 +1,13 @@
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dimensions } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dimensions, Image } from 'react-native';
 
 const API_URL = "https://api.covalenthq.com/v1/1/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 var deviceWidth = Dimensions.get('window').width;
+
+
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    title: 'Avalanche Coin',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -17,10 +19,35 @@ const DATA = [
   },
 ];
 
+
 const Item = ({ title }) => (
   <View style={styles.item}>
-    
+   <Image source={{uri: 'https://www.flaticon.com/free-icons/cryptocurrency'}}  />
+    <View style={styles.listItem}>
+    <Image
+        style={styles.tinyLogo}
+        source={{
+          uri: 'https://reactnative.dev/img/tiny_logo.png',
+        }}
+      />
+        <View style={{flexDirection: 'row', flex:4}}>
+  
+
+          <View style={{flexDirection:'column'}}>
     <Text style={styles.title}>{title}</Text>
+    <Text style={styles.title}>AVAX</Text>
+    </View>
+
+    <View style={{flexDirection:'column', paddingLeft:50,}}>
+    <Text style={styles.title}>$23.62</Text>
+    <Text style={styles.title}>0.9936</Text>
+ 
+
+
+    </View>
+    </View>
+    </View>
+
     <View
   style={{
     borderBottomColor: 'black',
@@ -103,6 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'left',
   },
   view: {
+    paddingTop:20,
 width: deviceWidth,
   },
   tinyLogo: {
@@ -114,7 +142,12 @@ width: deviceWidth,
     marginVertical: 8,
   },
   title: {
-    padding:20,
+    paddingLeft:20,
+    paddingTop:5,
     fontSize: 11,
+  },
+  listItem: {
+flexDirection: 'row',
+paddingLeft:20,
   },
 });
