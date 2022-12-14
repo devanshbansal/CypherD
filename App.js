@@ -56,13 +56,8 @@ const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contra
 
 
 export default function App() {
-  const parseResult = (jsonRes) => {
-    console.log("we are parsing result now");
-    setData(jsonRes.data.items);
-    console.log("data parsed succesfully");
-    console.log(data);
-  }
-
+  
+  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -71,8 +66,6 @@ export default function App() {
     { label: 'Polygon', value: '137' },
     { label: 'Fantom', value: '25'}
   ]);
-  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
-
   const [data, setData] = React.useState([]);
 
   const renderItem = ({ item }) => (
@@ -90,7 +83,7 @@ export default function App() {
         try {
           const jsonRes = await res.json();
           if (res.status === 200) {
-            parseResult(jsonRes);
+            setData(jsonRes.data.items);
           } else {
             console.log("Not working lol")
           }
@@ -102,9 +95,6 @@ export default function App() {
         console.log(err);
       });
   };
-
-
-  const image = { uri: "https://reactjs.org/logo-og.png" };
 
 
   return (
@@ -155,10 +145,6 @@ export default function App() {
         </View>
 
         </View>
-
-
-
-
 
     </SafeAreaView>
   );
