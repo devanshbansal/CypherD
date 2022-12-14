@@ -6,7 +6,6 @@ import { Divider } from 'react-native-elements';
 
 
 
-const API_URL = "https://api.covalenthq.com/v1/137/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 var deviceWidth = Dimensions.get('window').width;
 
 
@@ -72,6 +71,7 @@ export default function App() {
     { label: 'Polygon', value: '137' },
     { label: 'Fantom', value: '25'}
   ]);
+  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 
   const [data, setData] = React.useState([]);
 
