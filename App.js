@@ -68,9 +68,9 @@ export default function App() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
-    { label: 'Ethereum', value: 'ethereum' },
-    { label: 'Polygon', value: 'polygon' },
-    { label: 'Fantom', value: 'fantom'}
+    { label: 'Ethereum', value: '1' },   /* Blockchains and their chain-ids */
+    { label: 'Polygon', value: '137' },
+    { label: 'Fantom', value: '25'}
   ]);
 
   const [data, setData] = React.useState([]);
@@ -123,7 +123,6 @@ export default function App() {
       open={open}
       value={value}
       items={items}
-      dropDownDirection="TOP"
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
