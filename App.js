@@ -105,18 +105,18 @@ export default function App() {
     
 
       <View style={{flexDirection: "column"}}>
-        <ImageBackground source={image} resizeMode="cover" > 
   <View style={{height:150}}>
       <Text>Total Balance</Text>
       <Text> 215</Text>
       <View style={styles.button}>
       <Button
         title="Check Balance"
+        color="#000"
+        style={styles.button}
         onPress={onChangeHandler}
       />
       </View>
       </View>
-      </ImageBackground>
       <View
   style={{
     borderBottomColor: 'black',
@@ -155,6 +155,8 @@ width: deviceWidth,
   button: {
     position: 'absolute',
     bottom:15,
+    borderRadius:10,
+    backgroundColor: '#FFFF00',
     right:20
     },
   tinyLogo: {
