@@ -2,6 +2,8 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dime
 import React from 'react';
 import { ImageBackground } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Divider } from 'react-native-elements';
+
 
 
 const API_URL = "https://api.covalenthq.com/v1/137/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
@@ -66,8 +68,9 @@ export default function App() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' }
+    { label: 'Ethereum', value: 'ethereum' },
+    { label: 'Polygon', value: 'polygon' },
+    { label: 'Fantom', value: 'fantom'}
   ]);
 
   const [data, setData] = React.useState([]);
@@ -108,15 +111,25 @@ export default function App() {
     <SafeAreaView style={styles.container}>
 
 
-      <View style={styles.view}>
+        <View style={{ flexDirection: "column"}}>
 
-
-        <View style={{ flexDirection: "column", flex: 1 }}>
-
-          <View style={{ height: 150 }}>
-
+          <View style={{ flexDirection:"column",flex:1.8}}>
+            <View style={{flex:1 , flexDirection:"column"}}>
             <Text style={styles.titleText}>Total Balance</Text>
             <Text style={styles.otherText}>$215</Text>
+            </View>
+            <View style={{flex:1,paddingBottom:15, width:150, left:220}}>
+            <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      dropDownDirection="TOP"
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+      dropDownContainerStyle={{zIndex: 1000 }}
+    />
+            </View>
             <View style={styles.button}>
 
               <Button
@@ -127,13 +140,14 @@ export default function App() {
               />
 
             </View>
+            <Divider orientation="horizontal" />
           </View>
+
           <View
             style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 0.5,
+              flex:4
             }}
-          />
+          >
           <FlatList
             data={data}
             renderItem={renderItem}
@@ -141,11 +155,12 @@ export default function App() {
           />
         </View>
 
+        </View>
 
 
 
 
-      </View>
+
     </SafeAreaView>
   );
 }
@@ -169,6 +184,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     position: 'absolute',
     bottom: 15,
+    flex:1,
+    zIndex:20,
     borderRadius: 10,
     backgroundColor: '#FFFF00',
     right: 20
@@ -177,19 +194,20 @@ const styles = StyleSheet.create({
   dropdown: {
     position: 'absolute',
     bottom: 15,
+    flex:2,
     paddingTop: 40,
     borderRadius: 10,
     backgroundColor: '#FFFF00',
 
   },
   titleText: {
+    paddingTop:20,
     fontSize: 15,
     paddingLeft: 20,
     fontWeight: "bold"
   },
   otherText: {
     fontSize: 35,
-    fontWeight: "bold",
     paddingLeft: 25,
   },
   tinyLogo: {
