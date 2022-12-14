@@ -1,5 +1,6 @@
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Button, Dimensions, Image } from 'react-native';
 import React from 'react';
+import { ImageBackground } from 'react-native';
 
 
 
@@ -93,19 +94,29 @@ export default function App() {
   };
   
 
+  const image = { uri: "https://reactjs.org/logo-og.png" };
 
 
   return (
     <SafeAreaView style={styles.container}>
 
+
     <View style={styles.view}>
-      <View style ={styles.view}>
+    
+
+      <View style={{flexDirection: "column"}}>
+        <ImageBackground source={image} resizeMode="cover" > 
+  <View style={{height:150}}>
       <Text>Total Balance</Text>
       <Text> 215</Text>
+      <View style={styles.button}>
       <Button
         title="Check Balance"
         onPress={onChangeHandler}
       />
+      </View>
+      </View>
+      </ImageBackground>
       <View
   style={{
     borderBottomColor: 'black',
@@ -118,7 +129,11 @@ export default function App() {
         extraData={data}
       />
       </View>
-      <StatusBar style="auto" />
+    
+
+
+
+
     </View>
     </SafeAreaView>
   );
@@ -137,6 +152,11 @@ const styles = StyleSheet.create({
     paddingTop:20,
 width: deviceWidth,
   },
+  button: {
+    position: 'absolute',
+    bottom:15,
+    right:20
+    },
   tinyLogo: {
     width: 50,
     height: 50,
