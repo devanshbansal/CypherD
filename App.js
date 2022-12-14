@@ -106,8 +106,8 @@ export default function App() {
 
       <View style={{flexDirection: "column"}}>
   <View style={{height:150}}>
-      <Text>Total Balance</Text>
-      <Text> 215</Text>
+      <Text style={styles.titleText}>Total Balance</Text>
+      <Text style={styles.otherText}>$215</Text>
       <View style={styles.button}>
       <Button
         title="Check Balance"
@@ -158,6 +158,16 @@ width: deviceWidth,
     borderRadius:10,
     backgroundColor: '#FFFF00',
     right:20
+    },
+    titleText: {
+      fontSize: 15,
+      paddingLeft:20,
+      fontWeight: "bold"
+    },
+    otherText:{
+     fontSize: 35,
+     fontWeight: "bold",
+     paddingLeft: 25,
     },
   tinyLogo: {
     width: 50,
