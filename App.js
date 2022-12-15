@@ -3,13 +3,9 @@ import React from 'react';
 import { ImageBackground } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Divider } from 'react-native-elements';
-
-
+import axios from "axios";
 
 var deviceWidth = Dimensions.get('window').width;
-
-
-
 
 
 const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contract_decimals, quote_rate }) => (
@@ -106,8 +102,8 @@ export default function App() {
       });
   };
 
-  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
-
+  const API_URL = "http://localhost:3000/getWalletBalance?chainID="+value;
+  
   return (
     <SafeAreaView style={styles.container}>
 
