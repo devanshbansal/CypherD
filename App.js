@@ -8,7 +8,7 @@ import axios from "axios";
 var deviceWidth = Dimensions.get('window').width;
 
 
-const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contract_decimals, quote_rate }) => (
+const Item = ({ name,symbol, balance,tokens, logo_url }) => (
 
   <View style={styles.item}>
     <View style={styles.listItem}>
@@ -22,14 +22,14 @@ const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contra
 
 
         <View style={{ flexDirection: 'column', flex:1 }}>
-          <Text style={styles.nameText}>{contract_name}</Text>
-          <Text style={styles.labelText}>{contract_ticker_symbol}</Text>
+          <Text style={styles.nameText}>{name}</Text>
+          <Text style={styles.labelText}>{symbol}</Text>
         </View>
 
 <View style={{flexDirection:'row', flex:1, justifyContent:'space-between', textAlign:'right',paddingLeft:50}}>
         <View style={{ flexDirection: 'column', left: 0 }}>
-          <Text style={styles.title}>${(balance / (Math.pow(10, contract_decimals)) * quote_rate).toFixed(2)}</Text>
-          <Text style={styles.title}>{(balance / (Math.pow(10, contract_decimals))).toFixed(2)}</Text>
+          <Text style={styles.title}>${balance}</Text>
+          <Text style={styles.title}>{tokens}</Text>
           </View>
 
 
@@ -66,13 +66,9 @@ export default function App() {
   const [data, setData] = React.useState([]);
 
   const renderItem = ({ item }) => (
-    <Item contract_name={item.contract_name} contract_ticker_symbol={item.contract_ticker_symbol} logo_url={item.logo_url} balance={item.balance} contract_decimals={item.contract_decimals} quote_rate={item.quote_rate} />
+    <Item name={item.name} symbol={item.symbol} logo_url={item.logo_url} balance={item.balance} tokens={item.tokens} />
   );
   
-  function calculateTotalBalance() {
-    var sum =  data.reduce((sum, item) => sum + ((item.balance / (Math.pow(10, item.contract_decimals)) * item.quote_rate)), 0);
-  setTotalBalance(sum.toFixed(2));
-  }
 
   const onChangeHandler = () => {
     console.log(API_URL)
@@ -86,12 +82,10 @@ export default function App() {
         try {
           const jsonRes = await res.json();
           if (res.status === 200) {
-            setData(jsonRes.data.items);
-            calculateTotalBalance();
-            console.log("total balance is: "+totalBalance)
+            setData(jsonRes.items);
+            setTotalBalance(jsonRes.totalBalance);
           } else {
             console.log(res.status)
-            console.log("Not working lol")
           }
         } catch (err) {
           console.log(err);
@@ -103,7 +97,7 @@ export default function App() {
   };
 
   const API_URL = "http://localhost:3000/getWalletBalance?chainID="+value;
-  
+
   return (
     <SafeAreaView style={styles.container}>
 
