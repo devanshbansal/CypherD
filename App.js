@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
   titleText: {
     paddingTop:20,
     fontSize: 15,
-    paddingLeft: 20,
+    paddingLeft: 18,
     fontWeight: "bold"
   },
   otherText: {
     fontSize: 32,
-    paddingLeft: 4,
+    paddingLeft: 15,
   },
   tinyLogo: {
     width: 50,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   title: {
     paddingLeft: 20,
     paddingTop: 5,
-    fontSize: 11,
+    fontSize: 15,
     textAlign:'left',
   },
   listItem: {
