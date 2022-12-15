@@ -114,10 +114,10 @@ export default function App() {
 
         <View style={{ flexDirection: "column"}}>
 
-          <View style={{ flexDirection:"column",flex:1.8}}>
+          <View style={{ flexDirection:"column",flex:1.8, backgroundColor: "#ffdc00"}}>
             <View style={{flex:1 , flexDirection:"column"}}>
             <Text style={styles.titleText}>Total Balance</Text>
-            <Text style={styles.otherText}>{totalBalance}</Text>
+            <Text style={styles.otherText}>${totalBalance}</Text>
             </View>
             <View style={{flex:1,paddingBottom:15, width:150, left:220}}>
             <DropDownPicker
@@ -182,9 +182,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     flex:1,
-    left:220,
+    left:225,
     borderRadius: 10,
-    backgroundColor: '#FFFF00',
+    backgroundColor: '#ff9d00',
   },
 
   dropdown: {
@@ -203,8 +203,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   otherText: {
-    fontSize: 35,
-    paddingLeft: 25,
+    fontSize: 32,
+    paddingLeft: 4,
   },
   tinyLogo: {
     width: 50,
