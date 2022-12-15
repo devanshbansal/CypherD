@@ -57,10 +57,10 @@ const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contra
 
 export default function App() {
   
-  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(1);
+  const[totalBalance, setTotalBalance] = React.useState(0);
   const [items, setItems] = React.useState([
     { label: 'Ethereum', value: '1' },   /* Blockchains and their chain-ids */
     { label: 'Polygon', value: '137' },
@@ -71,8 +71,14 @@ export default function App() {
   const renderItem = ({ item }) => (
     <Item contract_name={item.contract_name} contract_ticker_symbol={item.contract_ticker_symbol} logo_url={item.logo_url} balance={item.balance} contract_decimals={item.contract_decimals} quote_rate={item.quote_rate} />
   );
+  
+  function calculateTotalBalance() {
+    var sum =  data.reduce((sum, item) => sum + ((item.balance / (Math.pow(10, item.contract_decimals)) * item.quote_rate)), 0);
+  setTotalBalance(sum.toFixed(2));
+  }
 
   const onChangeHandler = () => {
+    console.log(API_URL)
     fetch(`${API_URL}`, {
       method: 'GET',
       headers: {
@@ -84,7 +90,10 @@ export default function App() {
           const jsonRes = await res.json();
           if (res.status === 200) {
             setData(jsonRes.data.items);
+            calculateTotalBalance();
+            console.log("total balance is: "+totalBalance)
           } else {
+            console.log(res.status)
             console.log("Not working lol")
           }
         } catch (err) {
@@ -96,6 +105,7 @@ export default function App() {
       });
   };
 
+  const API_URL = "https://api.covalenthq.com/v1/"+value+"/address/0x6AE65a7033a84bb36778fEA6607A25a0d6c8EE50/balances_v2/?key=ckey_af34717a92384b14b858f3d0d42"
 
   return (
     <SafeAreaView style={styles.container}>
@@ -106,12 +116,13 @@ export default function App() {
           <View style={{ flexDirection:"column",flex:1.8}}>
             <View style={{flex:1 , flexDirection:"column"}}>
             <Text style={styles.titleText}>Total Balance</Text>
-            <Text style={styles.otherText}>$215</Text>
+            <Text style={styles.otherText}>{totalBalance}</Text>
             </View>
             <View style={{flex:1,paddingBottom:15, width:150, left:220}}>
             <DropDownPicker
       open={open}
       value={value}
+      defaultValue={value}
       items={items}
       setOpen={setOpen}
       setValue={setValue}
@@ -170,10 +181,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     flex:1,
-    zIndex:20,
+    left:220,
     borderRadius: 10,
     backgroundColor: '#FFFF00',
-    right: 20
   },
 
   dropdown: {
