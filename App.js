@@ -25,15 +25,16 @@ const Item = ({ contract_name, contract_ticker_symbol, logo_url, balance, contra
       <View style={{ flexDirection: 'row', flex: 4 }}>
 
 
-        <View style={{ flexDirection: 'column' }}>
+        <View style={{ flexDirection: 'column', flex:1 }}>
           <Text style={styles.nameText}>{contract_name}</Text>
           <Text style={styles.labelText}>{contract_ticker_symbol}</Text>
         </View>
 
-        <View style={{ flexDirection: 'column', paddingLeft: 50, }}>
+<View style={{flexDirection:'row', flex:1, justifyContent:'space-between', textAlign:'right',paddingLeft:50}}>
+        <View style={{ flexDirection: 'column', left: 0 }}>
           <Text style={styles.title}>${(balance / (Math.pow(10, contract_decimals)) * quote_rate).toFixed(2)}</Text>
           <Text style={styles.title}>{(balance / (Math.pow(10, contract_decimals))).toFixed(2)}</Text>
-
+          </View>
 
 
         </View>
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 11,
     paddingLeft: 20,
   },
   labelText: {
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingTop: 5,
     fontSize: 11,
+    textAlign:'left',
   },
   listItem: {
     flexDirection: 'row',
