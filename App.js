@@ -104,12 +104,22 @@ export default function App() {
 
         <View style={{ flexDirection: "column"}}>
 
-          <View style={{ flexDirection:"column",flex:1.8, backgroundColor: "#ffdc00"}}>
+          <View style={{ flexDirection:"column",flex:1.8, backgroundColor: "#ffdc00", zIndex:100}}>
             <View style={{flex:1 , flexDirection:"column"}}>
             <Text style={styles.titleText}>Total Balance</Text>
             <Text style={styles.otherText}>${totalBalance}</Text>
             </View>
-            <View style={{flex:1,paddingBottom:15, width:150, left:220}}>
+            <View style={styles.button}>
+
+<Button
+  title="Check Balance"
+  color="#000"
+  style={styles.button}
+  onPress={onChangeHandler}
+/>
+
+</View>
+            <View style={{flex:1,paddingBottom:15,minHeight:15,width:150, zIndex:100, paddingLeft:10}}>
             <DropDownPicker
       open={open}
       value={value}
@@ -121,16 +131,7 @@ export default function App() {
       dropDownContainerStyle={{zIndex: 1000 }}
     />
             </View>
-            <View style={styles.button}>
-
-              <Button
-                title="Check Balance"
-                color="#000"
-                style={styles.button}
-                onPress={onChangeHandler}
-              />
-
-            </View>
+          
             <Divider orientation="horizontal" />
           </View>
 
